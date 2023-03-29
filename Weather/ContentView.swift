@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var vm = ContentViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List {
+            Section(">> Today's weather for: \(vm.location)") {
+                TodayView(weatherResponse: vm.weatherData)
+            }
+            
+            Section(">> Upcoming") {
+                DaysList(weatherResponse: vm.weatherData)
+            }
         }
-        .padding()
+        .listStyle(.sidebar)
+        .background(Color(hex: "#05080D").edgesIgnoringSafeArea(.all))
+        .foregroundColor(.white)
     }
 }
 
