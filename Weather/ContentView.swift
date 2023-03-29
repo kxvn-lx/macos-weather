@@ -9,9 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject private var vm = ContentViewModel()
+    @State private var searchText = ""
+    @State private var isHidden = true
     
     var body: some View {
         List {
+            VStack {
+                Button("") {
+                    isHidden.toggle()
+                }
+                .opacity(0)
+                .keyboardShortcut("f")
+
+                SearchBarView(searchText: $searchText, isHidden: $isHidden)
+            }
+            
             Section(">> Today's weather for: \(vm.location)") {
                 TodayView(weatherResponse: vm.weatherData)
             }
