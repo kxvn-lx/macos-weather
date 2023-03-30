@@ -15,8 +15,10 @@ struct DaysList: View {
              ForEach(weather.days.dropFirst(), id: \.datetime) { day in
                  HStack(alignment: .firstTextBaseline) {
                      VStack(alignment: .leading) {
-                         Text(day.description)
                          Text("\(day.temp, specifier: "%.1f") celcius")
+                             .font(.system(.body, design: .monospaced))
+                         Text(day.description)
+                             .lineLimit(nil)
                      }
                      
                      Spacer()

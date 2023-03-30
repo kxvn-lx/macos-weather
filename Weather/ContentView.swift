@@ -9,23 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject private var vm = ContentViewModel()
-    @State private var searchText = ""
-    @State private var isHidden = true
     
     var body: some View {
         List {
-            VStack(alignment: .leading) {
-                Button("") {
-                    isHidden.toggle()
-                }
-                .opacity(0)
-                .keyboardShortcut("f")
-                Text(Date().getToday())
-                SearchBarView(searchText: $searchText, isHidden: $isHidden)
-            }
+            SearchBarView()
+                .environmentObject(vm)
             
             Section(">> Today's weather for: \(vm.location)") {
-                TodayView(weatherResponse: vm.weatherData)
+                if vm.weatherData != nil {
+                    TodayView(weatherResponse: vm.weatherData!)
+                } else {
+                    Text("No weather data available")
+                }
             }
             
             Section(">> Upcoming") {
@@ -33,8 +28,6 @@ struct ContentView: View {
             }
         }
         .listStyle(.sidebar)
-        .background(Color(hex: "#05080D").edgesIgnoringSafeArea(.all))
-        .foregroundColor(.white)
     }
 }
 

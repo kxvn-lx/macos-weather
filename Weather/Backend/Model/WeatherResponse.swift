@@ -40,10 +40,18 @@ enum Conditions: String, Codable {
     case rain = "Rain"
     case rainOvercast = "Rain, Overcast"
     case rainPartiallyCloudy = "Rain, Partially cloudy"
+    case snowRainOvercast = "Snow, Rain, Overcast"
+    case snowOvercast = "Snow, Overcast"
+    case snowRainPartiallyCloudy = "Snow, Rain, Partially cloudy"
+    case snowPartiallyCloudy = "Snow, Partially cloudy"
+    case snow = "Snow"
+    case snowRain = "Snow, Rain"
 }
 
 enum Preciptype: String, Codable {
     case rain = "rain"
+    case snow = "snow"
+    
 }
 
 // MARK: - Day
@@ -61,15 +69,12 @@ struct Day: Codable {
     let description: String
     let hours: [CurrentConditions]
     
-    func getCurrentHour() -> CurrentConditions? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        let currentTime = dateFormatter.string(from: Date())
-        
-        guard Set(hours.map { $0.datetime }).contains("\(currentTime):00:00") else {
-            return nil
+    // MARK: - METHODS
+    func getCurrentTemp(from currTime: String) -> Double {
+        guard Set(hours.map { $0.datetime }).contains("\(currTime):00:00") else {
+            return self.temp
         }
-        return hours.first { $0.datetime == "\(currentTime):00:00" }
+        return hours.first { $0.datetime == "\(currTime):00:00" }!.temp
     }
 }
 

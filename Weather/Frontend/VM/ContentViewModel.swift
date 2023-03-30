@@ -10,7 +10,8 @@ import Combine
 
 class ContentViewModel: ObservableObject {
     @Published var weatherData: WeatherResponse?
-    let location = "melbourne"
+    @Published var searchText = ""
+    var location = "melbourne"
     private var cancellables = Set<AnyCancellable>()
     private let api = API()
     
@@ -22,6 +23,7 @@ class ContentViewModel: ObservableObject {
                 switch result {
                 case .success(let weatherData):
                     self.weatherData = weatherData
+                    dump(weatherData)
                 case .failure(let error):
                     print(error)
                 }
@@ -33,5 +35,24 @@ class ContentViewModel: ObservableObject {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
     }
+    
+    func onTextfieldSubmit() {
+        guard !searchText.isEmpty else { return }
+        
+        api.fetchWeatherData(from: searchText)
+            .receive(on: DispatchQueue.main)
+            .sink { result in
+                switch result {
+                case .success(let weatherData):
+                    self.weatherData = weatherData
+                    self.location = self.searchText
+                    self.searchText = ""
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
 }
 

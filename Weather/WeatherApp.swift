@@ -12,6 +12,9 @@ struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
+                .background(Color(hex: "#05080D").edgesIgnoringSafeArea(.all))
+                .foregroundColor(.accentColor)
         }
     }
 }

@@ -8,41 +8,32 @@
 import SwiftUI
 
 struct SearchBarView: View {
-    @Binding var searchText: String
     @State private var isSearching = false
-    @Binding var isHidden: Bool
+    @State private var isHidden = true
+    @EnvironmentObject private var vm: ContentViewModel
     
     var body: some View {
-        HStack {
-            if !isHidden {
-                TextField("Search...", text: $searchText)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .background(Color.gray)
-                    .cornerRadius(8)
-                    .foregroundColor(Color.black)
-                    .onTapGesture {
-                        isSearching = true
-                    }
-                    .overlay(
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.secondary)
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 1)
-                            
-                            if isSearching {
-                                Button(action: {
-                                    searchText = ""
-                                    isSearching = false
-                                }, label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.gray)
-                                })
-                                .padding(.trailing, 8)
-                            }
+        VStack(alignment: .leading) {
+            Button("") {
+                isHidden.toggle()
+            }
+            .opacity(0)
+            .keyboardShortcut("f")
+            Text(Date().getToday())
+                .font(.headline)
+            
+            HStack {
+                if !isHidden {
+                    TextField("Search...", text: $vm.searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .foregroundColor(Color.primary)
+                        .onTapGesture {
+                            isSearching = true
                         }
-                    )
+                        .onSubmit {
+                            vm.onTextfieldSubmit()
+                        }
+                }
             }
         }
     }

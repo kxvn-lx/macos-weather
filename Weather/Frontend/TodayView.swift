@@ -8,23 +8,39 @@
 import SwiftUI
 
 struct TodayView: View {
-    private let day: Day?
+    private let day: Day
     private var currentTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        return dateFormatter.string(from: Date())
+        // Get current time for live view
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        
+        let timezoneOffset = weatherResponse.tzoffset * 60 * 60
+        let timeZone = TimeZone(secondsFromGMT: timezoneOffset)!
+        formatter.timeZone = timeZone
+        
+        return formatter.string(from: Date())
     }
+    private let weatherResponse: WeatherResponse
     
-    init(weatherResponse: WeatherResponse?) {
-        self.day = weatherResponse?.days.first
+    
+    init(weatherResponse: WeatherResponse) {
+        self.day = weatherResponse.days.first!
+        self.weatherResponse = weatherResponse
     }
     
     
     var body: some View {
-        if let day = day {
+        VStack(alignment: .leading, spacing: 25) {
             VStack(alignment: .leading) {
-                Text(day.conditions.rawValue)
-                Text("\((day.getCurrentHour() != nil) ? day.getCurrentHour()!.temp : day.temp, specifier: "%.1f") celcius")
+                Text("\(day.getCurrentTemp(from: currentTime), specifier: "%.1f") celcius")
+                    .font(.system(.body, design: .monospaced))
+                Text(weatherResponse.description)
+                    .lineLimit(nil)
+            }
+            
+            VStack(alignment: .leading, spacing: 5) {
+                Text(day.description)
+                    .lineLimit(nil)
                 
                 ScrollViewReader { value in
                     ScrollView(.horizontal) {
@@ -36,9 +52,10 @@ struct TodayView: View {
                                     Color.clear.opacity(1).cornerRadius(8)
                                     
                                     VStack(alignment: .leading) {
-                                        Text(hour.datetime.prefix(5))
+                                        Text(hour.datetime.prefix(2))
                                         Text("\(hour.temp, specifier: "%.1f")")
                                     }
+                                    .font(.system(.body, design: .monospaced))
                                     .id(hour.datetime)
                                     .padding(.vertical)
                                     .padding(.horizontal, 2.5)
@@ -54,14 +71,10 @@ struct TodayView: View {
                     }
                 }
             }
-        } else {
-            Text("No weather data available")
         }
     }
-}
-
-struct TodayView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodayView(weatherResponse: nil)
-    }
+    
+    
+    // MARK: PRIVATE METHODS
+    
 }

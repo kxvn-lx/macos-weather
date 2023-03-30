@@ -36,6 +36,7 @@ class API {
             let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
             return Just(Result.failure(error)).eraseToAnyPublisher()
         }
+        
 
         return URLSession.shared.dataTaskPublisher(for: url)
             .tryMap { data, response -> Result<WeatherResponse, Error> in
