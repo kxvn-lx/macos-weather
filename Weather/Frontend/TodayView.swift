@@ -36,30 +36,29 @@ struct TodayView: View {
                     .font(.system(.body, design: .monospaced))
                 Text(weatherResponse.description)
                     .lineLimit(nil)
+                    .frame(width: 250, alignment: .leading)
             }
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(day.description)
                     .lineLimit(nil)
+                    .frame(width: 250, alignment: .leading)
                 
                 ScrollViewReader { value in
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(day.hours, id: \.datetime) { hour in
-                                ZStack {
-                                    currentTime == hour.datetime.prefix(2) ?
-                                    Color.gray.opacity(0.25).cornerRadius(8) :
-                                    Color.clear.opacity(1).cornerRadius(8)
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(hour.datetime.prefix(2))
-                                        Text("\(hour.temp, specifier: "%.1f")")
-                                    }
-                                    .font(.system(.body, design: .monospaced))
-                                    .id(hour.datetime)
-                                    .padding(.vertical)
-                                    .padding(.horizontal, 2.5)
+                                VStack(alignment: .leading) {
+                                    Text(hour.datetime.prefix(2))
+                                    Text("\(hour.temp, specifier: "%.1f")")
                                 }
+                                .font(.system(.body, design: .monospaced))
+                                .id(hour.datetime)
+                                .padding(.vertical, 3.5)
+                                .padding(.horizontal, 2.5)
+                                .overlay( /// apply a rounded border
+                                    getRoundedBorderOverlay(hour: hour)
+                                )
                             }
                         }
                         .padding(.bottom)
@@ -77,4 +76,16 @@ struct TodayView: View {
     
     // MARK: PRIVATE METHODS
     
+}
+
+
+extension TodayView {
+    private func getRoundedBorderOverlay(hour: CurrentConditions) -> AnyView {
+        if currentTime == hour.datetime.prefix(2) {
+            return AnyView(RoundedRectangle(cornerRadius: 7.5)
+                .stroke(Color.accentColor, lineWidth: 1))
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
 }

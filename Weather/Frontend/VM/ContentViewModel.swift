@@ -11,7 +11,7 @@ import Combine
 class ContentViewModel: ObservableObject {
     @Published var weatherData: WeatherResponse?
     @Published var searchText = ""
-    var location = "melbourne"
+    private var location = "Melbourne"
     private var cancellables = Set<AnyCancellable>()
     private let api = API()
     
@@ -23,7 +23,6 @@ class ContentViewModel: ObservableObject {
                 switch result {
                 case .success(let weatherData):
                     self.weatherData = weatherData
-                    dump(weatherData)
                 case .failure(let error):
                     print(error)
                 }
