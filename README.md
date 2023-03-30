@@ -1,3 +1,3 @@
 #  Weather
 
-![](main.jpg)
+![](main.png)
