@@ -24,7 +24,7 @@ struct TodayView: View {
         if let day = day {
             VStack(alignment: .leading) {
                 Text(day.conditions.rawValue)
-                Text("\(day.temp, specifier: "%.1f") celcius")
+                Text("\((day.getCurrentHour() != nil) ? day.getCurrentHour()!.temp : day.temp, specifier: "%.1f") celcius")
                 
                 ScrollViewReader { value in
                     ScrollView(.horizontal) {

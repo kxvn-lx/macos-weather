@@ -14,13 +14,13 @@ struct ContentView: View {
     
     var body: some View {
         List {
-            VStack {
+            VStack(alignment: .leading) {
                 Button("") {
                     isHidden.toggle()
                 }
                 .opacity(0)
                 .keyboardShortcut("f")
-
+                Text(Date().getToday())
                 SearchBarView(searchText: $searchText, isHidden: $isHidden)
             }
             

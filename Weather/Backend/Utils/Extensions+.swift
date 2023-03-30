@@ -9,16 +9,10 @@ import Foundation
 import SwiftUI
 
 extension Date {
-    func isToday(dateString: String, format: String = "yyyy-MM-dd") -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        guard let date = dateFormatter.date(from: dateString) else {
-            return false
-        }
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.day, .month, .year], from: Date())
-        let todayComponents = calendar.dateComponents([.day, .month, .year], from: date)
-        return dateComponents.year == todayComponents.year && dateComponents.month == todayComponents.month && dateComponents.day == todayComponents.day
+    func getToday() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM yyyy"
+        return formatter.string(from: self)
     }
     
     func getReadable(from dateString: String) -> String {

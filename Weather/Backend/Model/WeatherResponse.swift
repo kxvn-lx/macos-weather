@@ -60,6 +60,17 @@ struct Day: Codable {
     let conditions: Conditions
     let description: String
     let hours: [CurrentConditions]
+    
+    func getCurrentHour() -> CurrentConditions? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        let currentTime = dateFormatter.string(from: Date())
+        
+        guard Set(hours.map { $0.datetime }).contains("\(currentTime):00:00") else {
+            return nil
+        }
+        return hours.first { $0.datetime == "\(currentTime):00:00" }
+    }
 }
 
 // MARK: - Encode/decode helpers

@@ -20,6 +20,7 @@ struct SearchBarView: View {
                     .padding(.horizontal, 20)
                     .background(Color.gray)
                     .cornerRadius(8)
+                    .foregroundColor(Color.black)
                     .onTapGesture {
                         isSearching = true
                     }
