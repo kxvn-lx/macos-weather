@@ -36,13 +36,11 @@ struct TodayView: View {
                     .font(.system(.body, design: .monospaced))
                 Text(weatherResponse.description)
                     .lineLimit(nil)
-                    .frame(width: 250, alignment: .leading)
             }
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(day.description)
                     .lineLimit(nil)
-                    .frame(width: 250, alignment: .leading)
                 
                 ScrollViewReader { value in
                     ScrollView(.horizontal) {

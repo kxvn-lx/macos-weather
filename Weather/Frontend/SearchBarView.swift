@@ -14,11 +14,8 @@ struct SearchBarView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Button("") {
-                isHidden.toggle()
-            }
-            .opacity(0)
-            .keyboardShortcut("f")
+            KeyboardsCommandView(isHidden: $isHidden)
+            
             Text(Date().getToday())
                 .font(.headline)
             
@@ -37,4 +34,9 @@ struct SearchBarView: View {
             }
         }
     }
+}
+
+
+extension SearchBarView {
+
 }

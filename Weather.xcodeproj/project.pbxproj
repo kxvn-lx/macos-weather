@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A23CB6729D6662600D5CA9A /* KeyboardsCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A23CB6629D6662600D5CA9A /* KeyboardsCommandView.swift */; };
 		0A67BC5F29D43A00001D5E26 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67BC5E29D43A00001D5E26 /* SearchBarView.swift */; };
 		0A8D779B29D3CC5500F078FC /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D779A29D3CC5500F078FC /* TodayView.swift */; };
 		0ABD112E29D2AA1400B08EF1 /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD112D29D2AA1400B08EF1 /* WeatherApp.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		0A135B7829D5832300057F75 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0A23CB6629D6662600D5CA9A /* KeyboardsCommandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardsCommandView.swift; sourceTree = "<group>"; };
 		0A67BC5E29D43A00001D5E26 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		0A8D779A29D3CC5500F078FC /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		0A90A57B29D55E79002DEC22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				0ABD114A29D2B61B00B08EF1 /* DaysList.swift */,
 				0A8D779A29D3CC5500F078FC /* TodayView.swift */,
 				0A67BC5E29D43A00001D5E26 /* SearchBarView.swift */,
+				0A23CB6629D6662600D5CA9A /* KeyboardsCommandView.swift */,
 			);
 			path = Frontend;
 			sourceTree = "<group>";
@@ -158,6 +161,8 @@
 			dependencies = (
 			);
 			name = Weather;
+			packageProductDependencies = (
+			);
 			productName = Weather;
 			productReference = 0ABD112A29D2AA1400B08EF1 /* Weather.app */;
 			productType = "com.apple.product-type.application";
@@ -186,6 +191,8 @@
 				Base,
 			);
 			mainGroup = 0ABD112129D2AA1400B08EF1;
+			packageReferences = (
+			);
 			productRefGroup = 0ABD112B29D2AA1400B08EF1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -221,6 +228,7 @@
 				0ABD113F29D2AAB100B08EF1 /* API.swift in Sources */,
 				0A8D779B29D3CC5500F078FC /* TodayView.swift in Sources */,
 				0ABD112E29D2AA1400B08EF1 /* WeatherApp.swift in Sources */,
+				0A23CB6729D6662600D5CA9A /* KeyboardsCommandView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

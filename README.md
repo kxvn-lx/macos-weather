@@ -8,3 +8,4 @@ Simple, Minimalistic weather for MacOS. Using [Visual Crossing](https://www.visu
 
 ## Notes
 `cmd + F` to enable the search bar.
+`cmd + R` to refresh.

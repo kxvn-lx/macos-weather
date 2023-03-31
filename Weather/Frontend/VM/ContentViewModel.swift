@@ -17,17 +17,7 @@ class ContentViewModel: ObservableObject {
     
     
     init() {
-        api.fetchWeatherData(from: location)
-            .receive(on: DispatchQueue.main) 
-            .sink { result in
-                switch result {
-                case .success(let weatherData):
-                    self.weatherData = weatherData
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            .store(in: &cancellables)
+        refresh { _ in }
     }
     
     func cancel() {
@@ -48,6 +38,22 @@ class ContentViewModel: ObservableObject {
                     self.searchText = ""
                 case .failure(let error):
                     print(error)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func refresh(onFinish: @escaping (_ status: Bool) -> Void) {
+        api.fetchWeatherData(from: location)
+            .receive(on: DispatchQueue.main)
+            .sink { result in
+                switch result {
+                case .success(let weatherData):
+                    self.weatherData = weatherData
+                    onFinish(true)
+                case .failure(let error):
+                    print(error)
+                    onFinish(false)
                 }
             }
             .store(in: &cancellables)
