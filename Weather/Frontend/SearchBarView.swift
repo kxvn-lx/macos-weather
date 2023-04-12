@@ -16,8 +16,14 @@ struct SearchBarView: View {
         VStack(alignment: .leading) {
             KeyboardsCommandView(isHidden: $isHidden)
             
-            Text(Date().getToday())
-                .font(.headline)
+            HStack {
+                Text(Date().getToday())
+                    .font(.headline)
+                
+                Text("⌘ + F to search for a city...")
+                    .font(.caption2)
+                    .opacity(0.5)
+            }
             
             HStack {
                 if !isHidden {

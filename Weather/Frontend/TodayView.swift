@@ -33,7 +33,7 @@ struct TodayView: View {
         VStack(alignment: .leading, spacing: 25) {
             VStack(alignment: .leading) {
                 Text("\(day.getCurrentTemp(from: currentTime), specifier: "%.1f") celcius")
-                    .font(.system(.body, design: .monospaced))
+                    .font(.system(.largeTitle, design: .monospaced))
                 Text(weatherResponse.description)
                     .lineLimit(nil)
             }
